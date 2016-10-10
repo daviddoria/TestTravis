@@ -1,6 +1,21 @@
 language: cpp
+
+sudo: required
+
 compiler: gcc
+
+addons:
+  apt:
+    packages:
+      - valgrind
+      
+env:
+  global:
+    - CTEST_EXT_COLOR_OUTPUT=TRUE
+    - CTEST_BUILD_FLAGS=-j4
+
 script:
  - mkdir build
  - cd build
  - cmake .. && make
+ - ctest -VV -S ./project_test.cmake
